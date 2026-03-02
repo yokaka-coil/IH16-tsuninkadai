@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>プロフィールサイト</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <header class="hero">
+      <p class="site-label">PROFILE SITE</p>
+      <h1 class="site-title">プロフィールサイト</h1>
+      <h2 class="name">Yokaka</h2>
+      <p class="intro">
+
+        趣味の写真撮影で撮ったものを展示しています。
+
+      </p>
+    </header>
+
+    <main class="gallery" aria-label="写真ギャラリー">
+      <button class="photo-card" data-image="images/photo01.jpg" data-alt="作品写真1" type="button"><img src="images/photo01.jpg" alt="写真1" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo02.jpg" data-alt="作品写真2" type="button"><img src="images/photo02.jpg" alt="写真2" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo03.jpg" data-alt="作品写真3" type="button"><img src="images/photo03.jpg" alt="写真3" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo04.jpg" data-alt="作品写真4" type="button"><img src="images/photo04.jpg" alt="写真4" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo05.jpg" data-alt="作品写真5" type="button"><img src="images/photo05.jpg" alt="写真5" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo06.jpg" data-alt="作品写真6" type="button"><img src="images/photo06.jpg" alt="写真6" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo07.jpg" data-alt="作品写真7" type="button"><img src="images/photo07.jpg" alt="写真7" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo08.jpg" data-alt="作品写真8" type="button"><img src="images/photo08.jpg" alt="写真8" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo09.jpg" data-alt="作品写真9" type="button"><img src="images/photo09.jpg" alt="写真9" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo10.jpg" data-alt="作品写真10" type="button"><img src="images/photo10.jpg" alt="写真10" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo11.jpg" data-alt="作品写真11" type="button"><img src="images/photo11.jpg" alt="写真11" loading="lazy" /></button>
+      <button class="photo-card" data-image="images/photo12.jpg" data-alt="作品写真12" type="button"><img src="images/photo12.jpg" alt="写真12" loading="lazy" /></button>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Yokaka</p>
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="閉じる">×</button>
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="拡大画像">
+      <img id="lightboxImage" src="" alt="" />
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll(".photo-card");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxClose = document.getElementById("lightboxClose");
+    const lightboxBackdrop = document.getElementById("lightboxBackdrop");
+
+    function openLightbox(src, alt) {
+      lightboxImage.src = src;
+      lightboxImage.alt = alt || "";
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("no-scroll");
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+      lightboxImage.alt = "";
+      document.body.classList.remove("no-scroll");
+    }
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        openLightbox(card.dataset.image, card.dataset.alt);
+      });
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightboxBackdrop.addEventListener("click", closeLightbox);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
